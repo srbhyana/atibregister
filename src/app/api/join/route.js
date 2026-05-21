@@ -15,13 +15,6 @@ function escapeHtml(value) {
   }[char]));
 }
 
-function getRecipients() {
-  return (process.env.LEAD_NOTIFY_TO || DEFAULT_TO)
-    .split(',')
-    .map((recipient) => recipient.trim())
-    .filter(Boolean);
-}
-
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -37,8 +30,8 @@ export async function POST(req) {
     const safeEmail = escapeHtml(email);
 
     const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || DEFAULT_FROM,
-      to: getRecipients(),
+      from: DEFAULT_FROM,
+      to: DEFAULT_TO,
       replyTo: email,
       subject: 'New Waitlist Sign-up for Atib!',
       html: `<p><strong>${safeEmail}</strong> has just requested early access to Atib.</p>`,

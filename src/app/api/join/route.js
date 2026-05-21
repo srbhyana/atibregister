@@ -31,12 +31,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-
-    if (!apiKey) {
-      console.error('Missing RESEND_API_KEY');
-      return NextResponse.json({ error: 'Email service not configured' }, { status: 500 });
-    }
+    const apiKey = "re_NG194LnM_4AiMmBpoW4c8SjbZWPDm854s";
 
     const resend = new Resend(apiKey);
     const safeEmail = escapeHtml(email);
